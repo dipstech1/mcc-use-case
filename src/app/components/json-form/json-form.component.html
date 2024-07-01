@@ -1,0 +1,33 @@
+<form [formGroup]="partForm">
+    <div *ngFor="let part of partData; let i = index" class="part-container" class="part-{{part.partId}}"
+        formGroupName="part-{{i}}">
+        <div>
+            Part: {{i + 1}}
+        </div>
+        <div class="section-container" *ngFor="let section of part.sections" class="section-{{section.id}}" #secBlock>
+            <div style="margin:10px 0px;">
+                Section:
+            </div>
+            @if (
+            "section.type === 'text'"
+            ) {
+            <label [for]="section.label">{{section.label}}</label>
+            <input type="text" [formControlName]="section.name" [id]="section.label" />
+            }
+        </div>
+    </div>
+</form>
+
+
+
+<div>
+    <h2>Select Identifer</h2>
+    <div *ngFor="let prt of partData; let idx = index"  class="identifier">
+        <label for="">Part {{idx + 1}}</label>
+        <select (change)="selectedSection($event)">
+            <option value="">Select section</option>
+            <option value={{sec.id}} *ngFor="let sec of prt.sections">{{sec.label}}</option>
+        </select>
+    </div>
+    
+</div>
